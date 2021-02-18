@@ -24,7 +24,7 @@ const Header = ({ currentUser, hidden }) => (
             {
                 currentUser ? 
                 (<div 
-                    className='option' 
+                    className='option'
                     onClick={ () => auth.signOut() }
                     >
                     SIGN OUT 
@@ -38,7 +38,7 @@ const Header = ({ currentUser, hidden }) => (
 
         </div>
 
-        // Toggle Show and Hidden Cart Dropdown
+        {/*Toggle Show and Hidden Cart Dropdown*/}
 
         {
             hidden ? null : 
