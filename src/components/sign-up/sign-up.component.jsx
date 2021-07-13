@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 import FormInput from '../form-input/form-input.component';
@@ -8,23 +8,17 @@ import { signUpStart } from '../../redux/user/user.actions';
 
 import { SignUpContainer, SignUpTitle } from './sign-up.styles';
 
-class SignUp extends React.Component {
-    constructor() {
-        super ();
+const SignUp = ({ signUpStart }) => {
+    const [userCredentials, setUserCredentials] = useState({
+        displayName: '',
+        email: '',
+        password: '',
+        confrimPassword: ''
+    });
+    const { email, displayName, password, confrimPassword } = userCredentials;
 
-        this.state = {
-            displayName: '',
-            email: '',
-            password: '',
-            confrimPassword: ''
-        };
-    }
-
-    handelSubmit = async event => {
+    const handelSubmit = async event => {
         event.preventDefault();
-
-        const { email, displayName, password, confrimPassword } = this.state;
-        const { signUpStart } = this.props;
 
         if (password !== confrimPassword) {
             alert("Password don't match");
@@ -35,61 +29,58 @@ class SignUp extends React.Component {
 
     };
 
-    handelChange = event => {
+    const handelChange = event => {
         const { name, value } = event.target;
-        this.setState({ [name]: value });
+        setUserCredentials({ ...userCredentials, [name]: value });
     }
 
-    render() {
-        const { displayName, email, password, confrimPassword } = this.state;
-        return (
-            <SignUpContainer>
-                <SignUpTitle >I do not have an account</SignUpTitle >
-                <span>Sign up with your email and password</span>
-                <form className='sign-up-form' onSubmit={this.handelSubmit}>
-                    <FormInput
-                        type='text'
-                        name='displayName'
-                        value={displayName}
-                        onChange={this.handelChange}
-                        label='Display Name'
-                        required
-                    />
+    return (
+        <SignUpContainer>
+            <SignUpTitle >I do not have an account</SignUpTitle >
+            <span>Sign up with your email and password</span>
+            <form className='sign-up-form' onSubmit={handelSubmit}>
+                <FormInput
+                    type='text'
+                    name='displayName'
+                    value={displayName}
+                    onChange={handelChange}
+                    label='Display Name'
+                    required
+                />
 
-                    <FormInput
-                        type='email'
-                        name='email'
-                        value={email}
-                        onChange={this.handelChange}
-                        label='Email'
-                        required
-                    />
+                <FormInput
+                    type='email'
+                    name='email'
+                    value={email}
+                    onChange={handelChange}
+                    label='Email'
+                    required
+                />
 
-                    <FormInput
-                        type='password'
-                        name='password'
-                        value={password}
-                        onChange={this.handelChange}
-                        label='Password'
-                        required
-                    />
+                <FormInput
+                    type='password'
+                    name='password'
+                    value={password}
+                    onChange={handelChange}
+                    label='Password'
+                    required
+                />
 
-                    <FormInput
-                        type='password'
-                        name='confrimPassword'
-                        value={confrimPassword}
-                        onChange={this.handelChange}
-                        label='Confrim Password'
-                        required
-                    />
+                <FormInput
+                    type='password'
+                    name='confrimPassword'
+                    value={confrimPassword}
+                    onChange={handelChange}
+                    label='Confrim Password'
+                    required
+                />
 
-                    <CustomButton type='submit'>SIGN UP</CustomButton>
+                <CustomButton type='submit'>SIGN UP</CustomButton>
 
-                </form>
+            </form>
 
-            </SignUpContainer>
-        );
-    }
+        </SignUpContainer>
+    );
 }
 
 const mapDispatchToProps = dispatch => ({
