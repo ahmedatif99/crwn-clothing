@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const CartItemContainer = styled.div`
   width: 100%;
@@ -21,5 +21,5 @@ export const ItemDetailsContainer = styled.div`
 `;
 
 export const ItemNameContainer = styled.span`
-font-size: 16px;
+  font-size: 16px;
 `;
